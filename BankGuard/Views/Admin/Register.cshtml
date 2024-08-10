@@ -1,0 +1,51 @@
+﻿@using BankGuard.Core.Application.ViewModels.User;
+@using BankGuard.Core.Application.Enums;
+@model SaveUserViewModel;
+@{
+
+}
+
+<div>
+    <h1>@TempData["Basic"]</h1>
+    <div>
+        <form method="post" asp-action="Register" asp-controller="Admin">
+            <h1>Create User</h1>
+            <p>@Model.Error</p>
+            <div class="d-flex row-cols-2">
+                <div class="card  p-4 m-2">
+                   <h3>Personal Information</h3>
+                    <input asp-for="Name" placeholder="First Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <input asp-for="LastName" placeholder="Last Name" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                    <input asp-for="Cedula" placeholder="National Id#" />
+                    <span asp-validation-for="Cedula" class="text-danger"></span>
+                    <input class="@TempData["Basic"]" asp-for="InitialAmount" placeholder="Initial Amount" />
+               </div>
+                <div class="card  p-4 m-2">
+                   <h3>Login Information</h3>
+                    <input asp-for="Email" placeholder="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <input asp-for="UserName" placeholder="UserName" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <input asp-for="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <input asp-for="ConfirmPassword" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    <input type="hidden" asp-for="id" value="0" />
+                    <select asp-for="Role">
+                        <option value="">Select User Type</option>
+                        @foreach (Roles rol in Enum.GetValues(typeof(Roles)))
+                        {
+
+                            <option value="@rol" >@rol</option>
+                        }
+                    </select>
+            <button class="btn btn-primary" type="submit">Save User</button>
+            <a class="btn btn-outline-danger" asp-action="UserManager" asp-controller="Admin">Cancel</a>
+            <input type="hidden" asp-for="HasError" value="false"/>
+            <input type="hidden" asp-for="Error" value="." />
+
+        </form>
+    </div>
+</div>

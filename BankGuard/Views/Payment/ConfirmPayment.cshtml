@@ -1,0 +1,41 @@
+﻿@using BankGuard.Core.Application.ViewModels.Transaction
+@model SaveTransactionViewModel
+
+
+
+
+<div class="container h-100 w-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="card-group">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="modal-title">Confirm Transaction</h5>
+            </div>
+            <div class="card-body">
+
+                <h4>The total Transaction amount</h4>
+                <h2>$@Model.Amount</h2>
+                <hr />
+                <h4>Destination</h4>
+                <p><strong>Account owner:</strong> @TempData["Name"]</p>
+                <p><strong>Account number:</strong> @Model.AccountTo</p>
+                <h5>Description:</h5>
+                <p>@Model.Detail</p>
+
+            </div>
+            <div class="modal-footer">
+                <form method="post"asp-action="ConfirmPaymentPost" asp-controller="Payment">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="AccountFrom" />
+                    <input type="hidden" asp-for="AccountTo" />
+                    <input type="hidden" asp-for="Amount" />
+                    <input type="hidden" asp-for="By" />
+                    <input type="hidden" asp-for="Detail" value="" />
+                    <input type="hidden" asp-for="Type" />
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Confirm</button>
+                </form>
+                <a class="btn btn-danger" asp-action="Index" asp-controller="Basic">cancel</a>
+
+            </div>
+        </div>
+    </div>
+</div>

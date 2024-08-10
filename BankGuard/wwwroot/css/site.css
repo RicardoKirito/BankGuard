@@ -1,0 +1,179 @@
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+  margin-bottom: 60px;
+  background: #ddd;
+}
+
+.nav-cool{
+   background: #fff;
+   margin-left: 1rem;
+   border-radius: 1rem;
+   padding: 1rem;
+   height: 90%;
+
+}
+.nav-cool ul{
+    list-style: none;
+    width: max-content;
+}
+
+.container-cool{
+    background: #fff;
+    overflow: auto;
+    height: 95vh;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 1440px;
+}
+#general {
+    
+}
+#greeting{
+    padding: 10px;
+
+}
+.status-item:first-child {
+    box-shadow: 1px 3px 6px #aaa8;
+    padding: 2rem;
+    border-radius: 2rem;
+    color: #47b983;
+    border: 1px solid #47b983;
+}
+.status-item:last-child {
+    box-shadow: 1px 3px 6px #aaa8;
+    padding: 2rem;
+    border-radius: 2rem;
+    color: #f1af8c;
+    border: 1px solid #f1af8c;
+}
+.status-item > div{
+    background: radial-gradient(#fff 70%, transparent 70%);
+    padding: 1rem;
+    translate: 0 1rem;
+}
+.status-item h5{
+    z-index: 10;
+}
+.account {
+    background: linear-gradient(45deg, #99f9da, #9ae4fc);
+    width: 16rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    min-height: 129.5px
+}
+.account p{
+    margin: 0;
+}
+.account > h5{
+    align-self: end;
+}
+section{
+    background: #eee;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    flex-wrap:wrap;
+    border-radius: 1rem;
+    padding: 12px;
+    margin: 8px;
+}
+select{
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+input{
+    border-radius: 1rem;
+    border: 1px solid #ccc;
+    padding: 4px;
+    padding-left: 8px;
+    
+}
+    input:focus {
+        outline: 2px solid #c88;
+    }
+textarea {
+    border-radius: 1rem;
+    border: 1px solid #ccc;
+    padding: 4px;
+    padding-left: 8px;
+}
+textarea:focus {
+    outline: 2px solid #c88;
+}
+.transaction-list{
+    background: #fff;
+    margin: 1rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    max-height: 50%;
+}
+.transaction-list h4{
+    color: #bbb;
+}
+.more-btn{
+    background: #fff;
+    height: fit-content;
+    color: #258;
+}
+.no-show{
+    display: none !important;
+}
+
+.user-card{
+    height: 50%;
+    padding: 1rem;
+
+}
+
+.user-card form *{
+    max-width: 100%;
+}
+
+@media screen and (max-width: 768px){
+
+    .nav-cool {
+        position: fixed;
+        z-index: 20;
+        height: fit-content;
+        bottom: 8px;
+        margin-right: 8px;
+        margin-left: 8px;
+        width: 95%;
+    }
+    .navbar-brand{
+        display: none;
+    }
+    .nav-cool ul {
+        padding: 0;
+        margin: 0;
+        font-size: 9px;
+    }
+    .nav-cool ul svg {
+        display: block;
+        width: 20px;
+    }
+    .nav-cool ul li, .nav-cool ul button{
+        font-size: 9px;
+        display:flex;
+    }
+}

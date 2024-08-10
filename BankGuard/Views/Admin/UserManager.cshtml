@@ -1,0 +1,76 @@
+﻿@using BankGuard.Core.Application.Dtos.Account
+@using BankGuard.Core.Application.ViewModels.User;
+@using BankGuard.Core.Application.Enums
+@using BankGuard.Core.Application.Helpers;
+@inject IHttpContextAccessor httpcontexaccessor;
+@model List<UserViewModel>
+
+@{
+    var SessionUser = httpcontexaccessor.HttpContext.Session.Get<AuthenticationResponse>("user");
+}
+
+<div>
+    <div>
+        <div>
+
+            <a class="btn btn-success" asp-action="Register" asp-controller="Admin">Add User</a>
+            <table class="table table-hover table-dark">
+                @if (Model.Count == 0)
+                {
+
+                }
+                else
+                {
+                    <thead>
+                        <tr>
+                            <td>Status</td>
+                            <td>Role</td>
+                            <td>National Id#</td>
+                            <td>Full Name</td>
+                            <td>Email</td>
+                            <td>UserName</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (UserViewModel user in Model){
+
+                        <tr>
+                                <td>
+                                    @if(user.id != SessionUser.Id)
+                                    {
+                                        <p class="mb-0 text-center">@(user.IsVerified ? "Active" : "Inactive")</p>
+                                        <a type="checkbox" class="btn-check" id="status_@user.UserName" asp-route-id="@user.id" asp-route-status="@user.IsVerified" asp-action="Statuschange" asp-controller="Admin" autocomplete="off"></a>
+                                        <input type="checkbox" class="btn-check" id="statuscheck" asp-action="Home" asp-controller="Admin" autocomplete="off"/>
+                                        <label class="btn btn-outline-primary  btn-sm" for="status" id="labelstatus" onclick="changer('status_@user.UserName')" onload="AddChecked()">@(user.IsVerified ? "Inactivate" : "Activate")</label>
+                                    }else{
+                                        <p class="mb-0 text-center"><strong class="text-success text-center">Active</strong></p>
+                                    }
+                            </td>
+                            <td>@user.Role</td>
+                            <td>@user.Cedula</td>
+                            <td>@user.Name @user.LastName</td>
+                            <td>@user.Email</td>
+                            <td>@user.UserName</td>
+                            <td><a class="btn btn-success rounded-pill" asp-action="UserView" asp-controller="Admin" asp-route-id="@user.id">Edit</a></td>
+                            @if(user.Role == Roles.Basic.ToString()){
+
+                                <td><a class="btn btn-success rounded-pill" asp-action="ProductManager" asp-controller="Admin" asp-route-id="@user.id">Products</a></td>
+                            }else{
+                                <td></td>
+                            }
+                        </tr>
+                    }
+                    </tbody>
+                    
+                }
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+
+
+</script>

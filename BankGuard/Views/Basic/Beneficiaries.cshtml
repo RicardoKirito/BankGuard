@@ -1,0 +1,71 @@
+﻿@using BankGuard.Core.Application.ViewModels.Beneficiary
+@model List<BeneficiaryViewModel>
+
+
+
+ <div class="containe m-5">
+     <h2>Beneficiaries</h2>
+    <a id="added" class="btn btn-primary" asp-action="AddBeneficiary" asp-controller="Basic">Add Beneficiary</a>
+    
+    <div class="d-flex row-cols-4 mt-3" >
+
+        @foreach(BeneficiaryViewModel beneficiary in Model){
+
+            <div class="card m-3 p-3">
+                <div class="row">
+                    <h6>Name: @beneficiary.Name @beneficiary.LastName</h6>
+                    <h7>Type: @beneficiary.Product.Type</h7>
+                    <h7>Account: @beneficiary.Product.accountnumber</h7>
+                    <a class="text-danger justify-self-end" asp-action="DeleteBeneficiary" asp-route-id="@beneficiary.Id" asp-controller="Basic">Delete</a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!--Form to add beneficiary-->
+    <div class="modal fade" tabindex="-1" id="add" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Add a new beneficiary</h5>
+                </div>
+                <div class="modal-body">
+                    <form method="get" asp-action="AddBeneficiary" asp-controller="Basic">
+                        <p class="text-danger">@ViewBag.Error</p>
+                        <input class="form-control"  type="number" placeholder="Account Number" required />
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Message of succeess or error-->
+    <div class="modal fade" tabindex="-1" id="Messagebeneficiary">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 id="addmessage"></h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+<script>
+    function Addedmodal(){
+
+        var added = document.getElementById("pan").innerHTML= "Backasdsf"
+         //if(added=="Added"){
+         //    document.getElementById("add").style.visibility = "hidden";
+         //    document.getElementById("Messagebeneficiary").style.visibility = "visible";
+         //    document.getElementById("addmessage").innerHTML = @ViewBag.Message;
+
+
+         //}else{
+         //       document.getElementById("addbutton").click();
+         //}
+    }
+
+
+</script>

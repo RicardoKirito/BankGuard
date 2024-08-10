@@ -1,0 +1,62 @@
+﻿@using BankGuard.Core.Application.ViewModels.Transaction
+@using BankGuard.Core.Application.Dtos.Transaction;
+@using BankGuard.Core.Application.ViewModels.Product
+@model SaveTransactionViewModel
+@{
+    List<ProductViewModel> products = ViewBag.Accounts;
+    List<ProductViewModel> loan = ViewBag.Loans;
+    TransactionResponse response = ViewBag.Error;
+}
+<div class="container h-100 w-100 d-flex flex-column justify-content-center align-items-center">
+    <h1>Loan Payment</h1>
+    @if(loan.Count()!=0){
+
+        <div class="card p-3 m-3 col-md-5 d-flex justify-content-center">
+            @if(response.HasError){
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                    @foreach(string error in response.Error){
+                        <li>@error</li>
+                    }
+                    </ul>
+                    <button class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+        <form method="post" asp-action="Loan" asp-controller="Payment">
+                <div class="d-flex flex-column gap-2">
+                <label>Account from</label>
+                <select asp-for="AccountFrom">
+                    @foreach(ProductViewModel product in products){
+                        <option value="@product.accountnumber">@product.accountnumber Balance: $@product.Balance</option>
+                    }
+                </select>
+                <label>Loan</label>
+                <span asp-validation-for="AccountFrom" class="text-danger"></span>
+                <select asp-for="AccountTo">
+                    @foreach (ProductViewModel product in loan)
+                    {
+                        <option value="@product.accountnumber">@product.accountnumber Balance: $@product.Balance</option>
+                    }
+                </select>
+                <span asp-validation-for="AccountTo" class="text-danger"></span>
+                Amount
+                <input asp-for="Amount" placeholder="0.00" />
+                <input type="hidden" asp-for="Amount" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+                    <label>Add a note</label>
+                <textarea asp-for="Detail" style="resize:none;" placeholder="Description"></textarea>
+                <button type="submit" class="btn btn-primary">Continue</button>
+            </div>
+        </form>
+
+    </div>
+    }else{
+        <br />
+        <br />
+    <h4><i>There isn't an asociated loan for this account.</i></h4>
+    <p><i>IF you need a loan request it.</i></p>
+    }
+</div>
+
+
+

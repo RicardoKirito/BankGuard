@@ -1,0 +1,31 @@
+﻿@using BankGuard.Core.Application.ViewModels.User;
+@model LoginViewModel;
+
+
+    <div class="mx-5">
+        <h1 style="font-size: 4rem">Bank Guard</h1>
+        <p class="d-none d-md-block">We make sure to secure your money for you</p>
+    </div>
+<div class="card p-3 col-4 user-card" style="width: 26rem;">
+             <h1>Log in</h1>
+            <form method="post"  asp-action="Login" asp-controller="User">
+                <div class="d-flex flex-column justify-content-center align-content-center">
+                    <label>Email</label>
+                    <input asp-for="Email" placeholder="UserName or Email" />
+                    <span asp-validation-for="Email" class="text-danger mb-2"></span>
+                    <label>Password</label>
+                    <input asp-for="Password" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <input type="hidden" asp-for="HasError" value="false" />
+                    <input type="hidden" asp-for="ErrorMessage" value="." />
+                    @if (Model.HasError)
+                    {
+
+
+                        <p class="text-danger">@Model.ErrorMessage</p>
+                    }
+                    <button type="submit" class="btn btn-primary mt-4 mb-2">Sing in</button> 
+                    <a asp-action="ForgotPassword" asp-controller="User">Forgot Password?</a>
+                </div>
+            </form>
+    </div>

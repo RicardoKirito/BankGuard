@@ -1,0 +1,31 @@
+﻿@using BankGuard.Core.Application.ViewModels.Product
+@using BankGuard.Core.Application.Enums
+@model SaveProductViewModel
+
+
+
+<div>
+    <div>
+        <form method="post" asp-action="AddProduct" asp-controller="Admin">
+            <h3>Adding a @Model.Type</h3>
+            <div class="d-flex row-cols-2">
+                <div class="card  p-4 m-2">
+                   
+                    @if(Model.Type!=Accounttype.Saving.ToString()){
+
+                            <input asp-for="amount" placeholder="@(Model.Type==Accounttype.Loan.ToString()?"Loan Amount": "Credit Limit")" required/>
+                            <span asp-validation-for="amount"></span>
+                    }
+                    @if(Model.Type == Accounttype.Saving.ToString()){
+                        <input asp-for="Balance" placeholder="Initial Amount" required/>
+                        <span asp-validation-for="Balance" ></span>
+
+                    }
+                    <input type="hidden" asp-for="Type"/>
+                    <input type="hidden" asp-for="UserId"/>
+                    <span asp-validation-for="UserId" ></span>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <a type="button" class="btn btn-outline-secondary" asp-action="ProductManager" asp-route-id="@Model.UserId" asp-controller="Admin">Cancel</a>
+        </form>
+    </div>
+</div>

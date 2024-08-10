@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BankGuard.Core.Application\BankGuard.Core.Application.csproj" />
+    <ProjectReference Include="..\BankGuard.Infrastructure.Identity\BankGuard.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\BankGuard.Infrastructure.Persistence\BankGuard.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\BankGuard.Infrastructure.Shared\BankGuard.Infrastructure.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

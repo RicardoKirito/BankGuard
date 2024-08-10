@@ -1,0 +1,18 @@
+﻿@using BankGuard.Core.Application.ViewModels.Beneficiary
+@model SaveBeneficiaryViewModel
+
+
+<div class="justify-content-center">
+    <h2>Add Beneficiary</h2>
+    <form method="post" asp-action="AddBeneficiary" asp-controller="Basic">
+        <div class="card p-4 m-4">
+            <input class="form-control" asp-for="Accountnumber" placeholder="Account Number" required />
+            <span class="text-danger" asp-validation-for="Accountnumber"></span>
+            <span class="text-danger">@ViewBag.Error</span>
+            <div>
+                <button type="submit" class="btn btn-primary m-3">Save</button>
+                <a class="btn btn-secondary" asp-action="Beneficiaries" asp-controller="Basic">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>

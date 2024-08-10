@@ -1,0 +1,176 @@
+﻿@using BankGuard.Core.Application.ViewModels.Product
+@using BankGuard.Core.Application.ViewModels.Transaction;
+@using BankGuard.Core.Application.Enums
+@model List<ProductViewModel>
+@{
+    List<TransactionViewModel> transactions = ViewBag.Transactions;
+    int savingsCount = Model.Where(p => p.Type == Accounttype.Saving.ToString()).Count();
+    int CreditCount = Model.Where(p => p.Type == Accounttype.CreditCard.ToString()).Count();
+    int LoanCount = Model.Where(p => p.Type == Accounttype.Loan.ToString()).Count();
+    List<string> month = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Agu", "Sept", "Oct", "Nov", "Dec" };
+
+
+}
+<div>
+    <div>
+        @if (Convert.ToString(TempData["message"]) != "")
+        {
+            <div class=" alert alert-danger alert-dismissible fade show  border-2 border-danger" role="alert">
+                @TempData["message"]
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+        <div class="h-100 d-flex justify-content-center gap-3 flex-wrap">
+            <div id="d" class="d-flex flex-column gap-1  m-4 ">
+                <div id="General" class="d-flex gap-4 flex-wrap">
+                    <div id="greeting" class="flex-grow-1">
+                        <h1>@ViewBag.Greeting</h1>
+                        <h3>Welcome back </h3>
+                    </div>
+                    <div id="status" class="d-flex gap-3">
+                        <div class=" status-item d-flex flex-column align-items-center">
+                            <div>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <h5>Balance</h5>
+                            <h4>$@Model.Where(p=> p.Type == Accounttype.Saving.ToString()).ToList().Sum(p=> p.Balance)</h4>
+                        </div>
+                        <div class=" status-item d-flex flex-column align-items-center">
+                            <div>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="30px" fill="currentColor">
+                                        <path d="M200-280v-280h80v280h-80Zm240 0v-280h80v280h-80ZM80-120v-80h800v80H80Zm600-160v-280h80v280h-80ZM80-640v-80l400-200 400 200v80H80Zm178-80h444-444Zm0 0h444L480-830 258-720Z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <h5>Debt amount</h5>
+                            <h4>$@(Model.Where(p => p.Type == Accounttype.CreditCard.ToString()).ToList().Sum(p => p.Balance) + Model.Where(p => p.Type == Accounttype.Loan.ToString()).ToList().Sum(p => p.Balance))</h4>
+                        </div>
+                    </div>
+                </div>
+                    <section id="savings">
+                        <div class="d-flex justify-content-between">
+                            <h4>Savings Accounts</h4>
+                        <a class="btn bg-info show-more no-show" onclick="show(this, this.parentElement.nextElementSibling,'129.5px')">Show more</a>
+                        </div>
+                        <div class="container d-flex gap-2 align-items-center flex-wrap overflow-hidden" style="max-width: 808px; height: 129.5px">
+                            @{int count = 0;}
+                            @foreach (ProductViewModel product in Model.Where(p => p.Type == Accounttype.Saving.ToString()).ToList())
+                            {
+                               
+                            <div class="d-flex flex-column account">
+                                <h5>@product.accountnumber</h5>
+                                <div class="d-flex flex-column">
+                                    <p>Balance</p>
+                                    <h3>$@product.Balance</h3>
+                                </div>
+                            </div>
+                            }
+                           
+                        
+                        </div>
+                    </section>
+                @if (CreditCount > 0)
+                {
+                     <section id="Credit">
+                        <div class="d-flex justify-content-between">
+                            <h4>Credit Cards</h4>
+                            <a class="btn bg-info show-more no-show" onclick="show(this, this.parentElement.nextElementSibling,'160.5px')">Show more</a>
+                        </div>
+                        <div class="container d-flex gap-2 align-items-center flex-wrap overflow-hidden" style="max-width: 808px; height: 160.5px">
+                            @foreach (ProductViewModel product in Model.Where(p => p.Type == Accounttype.CreditCard.ToString()))
+                            {
+                                <div class="d-flex flex-column account">
+                                    <h5 >@product.accountnumber</h5>
+                                    <div class="d-flex flex-column">
+                                        <h3 class="mb-0">$@(product.amount - product.Balance)</h3>
+                                        <p class="mb-3">Available</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p><span class="fw-bold">Used</span> $@product.Balance</p>
+                                        <p><span class="fw-bold">Limit</span> $@product.amount</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </section>
+                }
+                @if(LoanCount > 0){
+
+                    <section id="Loans">
+                        <div class="d-flex justify-content-between">
+                            <h4>Financial loans</h4>
+                            <a class="btn bg-info show-more no-show" onclick="show(this, this.parentElement.nextElementSibling,'160.5px')">Show more</a>
+                        </div>
+                        <div class="container d-flex gap-2 align-items-center flex-wrap overflow-hidden" style="max-width: 808px; height: 160.5px">
+                            @foreach (ProductViewModel product in Model.Where(p => p.Type == Accounttype.Loan.ToString()))
+                            {
+                                <div class="d-flex flex-column account">
+                                    <h5 >@product.accountnumber</h5>
+                                    <div class="d-flex flex-column">
+                                        <h3 class="mb-0">$@product.Balance</h3>
+                                        <p class="mb-3">Remaining</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p><span class="fw-bold">Paid</span> @(product.amount - product.Balance)</p>
+                                        <p><span class="fw-bold">Approved</span> $@product.amount</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </section>
+                }
+            </div>
+            <div class="d-flex flex-column transaction-list flex-grow-1" >
+                <h3>Transaction History</h3>
+                @if (transactions.Count() != 0)
+                {
+                    <table class="table col-5">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (TransactionViewModel transaction in transactions)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-bold fs-7">
+                                                @transaction.AccountFrom
+                                            </span>
+                                            <span class="text-secondary fs-10">
+                                                @{DateTime date = DateTime.Parse(transaction.Date); }
+                                                @month[date.Month] @date.Day @date.Year
+                                                
+                                            </span>
+                                        </div>
+                                     </td>
+                                    <td>@transaction.AccountTo</td>
+                                    <td class="@((transaction.Amount>0)? "text-success": "text-danger")" >@transaction.Amount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <hr />
+                    <h4>No transactions yet</h4>
+                }
+            </div>
+        </div>
+            </div>
+        </div>
+            </div>
+        </div>
+       
+            
+</div>
