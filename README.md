@@ -3,7 +3,7 @@
 
 ## Instalation
 ### 
-###**Recomended Setup**
+### **Recomended Setup**
 Open Visual Studio 2022 and choose clone repository and use the this link:  https://github.com/RicardoKirito/BankGuard.git
 
  One you clone the repository follow this steps: 
