@@ -17,7 +17,7 @@ Now the data base is created and the right information is in the **"ConnectionSt
 1. Open the **NuGets Package Manager Terminal** make sure you select the project BankGuard.Infrastructure.Persistence and run the next comand: `update-database -context  ApplicationContext`.
 1. Using the same **NuGets Package Manager Terminal** now change the project to BankGuard.Infrastructure.Identity and run the next comand: `update-database -context  IdentityContext`.
 
-##Roles and access
+## Roles and access
 - **Admin**
 This is the role the application manager should use. This role has the following features: 
 	- **Create, update, disactivate or active** any user. 
